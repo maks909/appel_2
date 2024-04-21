@@ -262,8 +262,8 @@ class DuszekPatyczak(Duszek):
 class DuszekDrzwi(Duszek):
     def __init__(self, gra, obrazek, x, y, szerokość, wysokość):
         Duszek.__init__(self, gra)
-        self.drzwi_otwarte = PhotoImage(file="drzwi2.gif")
-        self.drzwi_zamknięte = PhotoImage(file="drzwi1.gif")
+        self.drzwi_otwarte = PhotoImage(file="flaga.png")
+        self.drzwi_zamknięte = PhotoImage(file="flaga.png")
         self.image = gra.płotno.create_image(x, y, image=self.drzwi_zamknięte, anchor="nw")
         self.współrzędne = Coords(x, y, x + (szerokość / 2), y + wysokość)
         self.koniecGry = True
@@ -342,7 +342,7 @@ class menu_gry:
         g.duszki.append(platforma8)
         g.duszki.append(platforma9)
         g.duszki.append(platforma10)
-        drzwi = DuszekDrzwi(g, PhotoImage(file="drzwi1.gif"), 45, 30, 40, 35)
+        drzwi = DuszekDrzwi(g, PhotoImage(file="drzwi1.gif"), 45, 1060-108, 73, 108)
         g.duszki.append(drzwi)
         sf = DuszekPatyczak(g)
         g.duszki.append(sf)
