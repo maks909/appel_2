@@ -10,11 +10,11 @@ class gra:
         self.tk.title("Pan Patyczak pędzi do wyjścia")
         self.tk.resizable(0, 0)
         self.tk.wm_attributes("-topmost", 1)
-        self.płotno =  Canvas(self.tk, width=500, height=500, highlightthickness=0)
+        self.płotno =  Canvas(self.tk, width=1920, height=1080, highlightthickness=0)
         self.płotno.pack()
         self.tk.update()
-        self.wysokość_płotna = 500
-        self.szerokość_płotna = 500
+        self.wysokość_płotna = 1080
+        self.szerokość_płotna = 1920
         self.tło = PhotoImage(file="tło.gif")
         self.tło2 = PhotoImage(file="tło2.gif")
         self.tło3 = PhotoImage(file="tło_stół_z_lampą.gif")
