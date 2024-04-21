@@ -141,7 +141,7 @@ class DuszekPatyczak(Duszek):
             # PhotoImage(file="patyczak-P2.gif"),
             # PhotoImage(file="patyczak-P3.gif")
         ]
-        self.image = gra.płotno.create_image(50, 440, image=self.obrazki_lewa[0], anchor='nw')
+        self.image = gra.płotno.create_image(900, 440, image=self.obrazki_lewa[0], anchor='nw')
         self.x = -2
         self.y = 0
         self.bieżący_obrazek = 0
@@ -156,10 +156,12 @@ class DuszekPatyczak(Duszek):
         gra.płotno.bind_all('<KeyPress-Up>', self.skok)
 
     def obrót_w_lewo(self, zdarzenie):
-        self.x = -2
+        self.x = -8
+        self.press = 1
     
     def obrót_w_prawo(self, zdarzenie):
-        self.x = 2
+        self.x = 8
+        self.press = 1
     
     def skok(self, zdarzenie):
         if self.y == 0:
@@ -167,6 +169,7 @@ class DuszekPatyczak(Duszek):
             self.licznik_skoków = 0
 
     def animuj(self):
+        
         if self.x != 0 and self.y == 0:
             if time.time() - self.ostatni_czas > 0.1:
                 self.ostatni_czas = time.time()
@@ -250,7 +253,9 @@ class DuszekPatyczak(Duszek):
                     self.gra.biegnie = False
         if spadanie and dół and self.y == 0 and wsp.y2 < self.gra.wysokość_płotna:
             self.y = 4
+        
         self.gra.płotno.move(self.image, self.x, self.y)
+        
     
     def wejść_do_drzwi(self, drzwi):
         drzwi.otworzyć_drzwi()
