@@ -132,14 +132,14 @@ class DuszekPatyczak(Duszek):
     def __init__(self, gra):
         Duszek.__init__(self, gra)
         self.obrazki_lewa = [
-            PhotoImage(file="patyczak-L1.gif"),
-            PhotoImage(file="patyczak-L2.gif"),
-            PhotoImage(file="patyczak-L3.gif")
+            PhotoImage(file="appel_lewo.png"),
+            # PhotoImage(file="patyczak-L2.gif"),
+            # PhotoImage(file="patyczak-L3.gif")
         ]
         self.obrazki_prawa = [
-            PhotoImage(file="patyczak-P1.gif"),
-            PhotoImage(file="patyczak-P2.gif"),
-            PhotoImage(file="patyczak-P3.gif")
+            PhotoImage(file="appel_prawo.png"),
+            # PhotoImage(file="patyczak-P2.gif"),
+            # PhotoImage(file="patyczak-P3.gif")
         ]
         self.image = gra.płotno.create_image(50, 440, image=self.obrazki_lewa[0], anchor='nw')
         self.x = -2
@@ -149,40 +149,40 @@ class DuszekPatyczak(Duszek):
         self.licznik_skoków = 0
         self.ostatni_czas = time.time()
         self.współrzędne = Coords()
+        self.szerokość = 48
+        self.wysokość = 64
         gra.płotno.bind_all('<KeyPress-Left>', self.obrót_w_lewo)
         gra.płotno.bind_all('<KeyPress-Right>', self.obrót_w_prawo)
-        gra.płotno.bind_all('<space>', self.skok)
+        gra.płotno.bind_all('<KeyPress-Up>', self.skok)
 
     def obrót_w_lewo(self, zdarzenie):
-        if self.y == 0:
-            self.x = -2
+        self.x = -2
     
     def obrót_w_prawo(self, zdarzenie):
-        if self.y == 0:
-            self.x = 2
+        self.x = 2
     
     def skok(self, zdarzenie):
         if self.y == 0:
-            self.y = -4
+            self.y = -6
             self.licznik_skoków = 0
 
     def animuj(self):
         if self.x != 0 and self.y == 0:
             if time.time() - self.ostatni_czas > 0.1:
                 self.ostatni_czas = time.time()
-                self.bieżący_obrazek += self.bieżący_obrazek_dodaj
-                if self.bieżący_obrazek >= 2:
-                    self.bieżący_obrazek_dodaj = -1
-                if self.bieżący_obrazek <= 0:
-                    self.bieżący_obrazek_dodaj = 1
+                self.bieżący_obrazek = 0
+                # if self.bieżący_obrazek >= 2:
+                #     self.bieżący_obrazek_dodaj = -1
+                # if self.bieżący_obrazek <= 0:
+                #     self.bieżący_obrazek_dodaj = 1
         if self.x < 0:
             if self.y != 0:
-                self.gra.płotno.itemconfig(self.image, image=self.obrazki_lewa[2])
+                self.gra.płotno.itemconfig(self.image, image=self.obrazki_lewa[0])
             else:
                 self.gra.płotno.itemconfig(self.image, image=self.obrazki_lewa[self.bieżący_obrazek])
         if self.x > 0:
             if self.y != 0:
-                self.gra.płotno.itemconfig(self.image, image=self.obrazki_prawa[2])
+                self.gra.płotno.itemconfig(self.image, image=self.obrazki_prawa[0])
             else:
                 self.gra.płotno.itemconfig(self.image, image=self.obrazki_prawa[self.bieżący_obrazek])    
 
@@ -190,15 +190,15 @@ class DuszekPatyczak(Duszek):
         xy = self.gra.płotno.coords(self.image)
         self.współrzędne.x1 = xy[0]
         self.współrzędne.y1 = xy[1]
-        self.współrzędne.x2 = xy[0] + 27
-        self.współrzędne.y2 = xy[1] + 30
+        self.współrzędne.x2 = xy[0] + self.szerokość
+        self.współrzędne.y2 = xy[1] + self.wysokość
         return self.współrzędne 
 
     def move(self):
         self.animuj() 
         if self.y < 0:
             self.licznik_skoków += 1
-            if self.licznik_skoków > 20:
+            if self.licznik_skoków > 182//6:
                 self.y = 4
         if self.y > 0:
             self.licznik_skoków -= 1
