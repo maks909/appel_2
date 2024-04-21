@@ -10,10 +10,10 @@ class gra:
         self.tk.title("Pan Patyczak pędzi do wyjścia")
         self.tk.resizable(0, 0)
         self.tk.wm_attributes("-topmost", 1)
-        self.płotno =  Canvas(self.tk, width=1920, height=1080, highlightthickness=0)
+        self.płotno =  Canvas(self.tk, width=1920, height=1060, highlightthickness=0)
         self.płotno.pack()
         self.tk.update()
-        self.wysokość_płotna = 1080
+        self.wysokość_płotna = 1060
         self.szerokość_płotna = 1920
         self.tło = PhotoImage(file="tło.gif")
         self.tło2 = PhotoImage(file="tło2.gif")
@@ -24,8 +24,8 @@ class gra:
         self.wys = self.tło.height()
         rysować_tło = False
         numer_tła = 0
-        for x in range(0,5):
-            for y in range(0,5):
+        for x in range(0,self.szerokość_płotna//100+100):
+            for y in range(0,self.szerokość_płotna//100+100):
                 if rysować_tło == True:   
                     self.płotno.create_image(x * self.sze, y * self.wys, image=self.tło, anchor='nw')
                     rysować_tło = False
