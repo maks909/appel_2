@@ -128,7 +128,7 @@ class DuszekPlatforma(Duszek):
         self.image = gra.płotno.create_image(x, y, image=self.obrazek, anchor='nw')
         self.współrzędne = Coords(x, y, x + szerokość, y + wysokość)
 
-class DuszekPatyczak(Duszek):
+class DuszekAppel(Duszek):
     def __init__(self, gra):
         Duszek.__init__(self, gra)
         self.obrazki_lewa = [
@@ -142,8 +142,10 @@ class DuszekPatyczak(Duszek):
             # PhotoImage(file="patyczak-P3.gif")
         ]
         self.image = gra.płotno.create_image(900, 440, image=self.obrazki_lewa[0], anchor='nw')
-        self.x = -2
+        self.x = 8
         self.y = 0
+        self.poszybszanie = 0
+        self.licznik_poruszania_się = 0
         self.bieżący_obrazek = 0
         self.bieżący_obrazek_dodaj = 1
         self.licznik_skoków = 0
@@ -156,12 +158,10 @@ class DuszekPatyczak(Duszek):
         gra.płotno.bind_all('<KeyPress-Up>', self.skok)
 
     def obrót_w_lewo(self, zdarzenie):
-        self.x = -8
-        self.press = 1
+        self.poszybszanie = -1
     
     def obrót_w_prawo(self, zdarzenie):
-        self.x = 8
-        self.press = 1
+        self.poszybszanie = 1
     
     def skok(self, zdarzenie):
         if self.y == 0:
@@ -199,7 +199,7 @@ class DuszekPatyczak(Duszek):
 
     def move(self):
         self.animuj() 
-        if self.y < 0:
+        if self.y < 0: 
             self.licznik_skoków += 1
             if self.licznik_skoków > 182//6:
                 self.y = 4
@@ -253,8 +253,16 @@ class DuszekPatyczak(Duszek):
                     self.gra.biegnie = False
         if spadanie and dół and self.y == 0 and wsp.y2 < self.gra.wysokość_płotna:
             self.y = 4
+        if self.x != 0:      
+            licznik_poruszania_się = 0
+            if self.poszybszanie > 0:
+                self.poszybszanie -= 0.02
+            elif self.poszybszanie < 0:
+                self.poszybszanie += 0.02
+            
+
         
-        self.gra.płotno.move(self.image, self.x, self.y)
+        self.gra.płotno.move(self.image, self.x*self.poszybszanie, self.y)
         
     
     def wejść_do_drzwi(self, drzwi):
@@ -349,7 +357,7 @@ class menu_gry:
         g.duszki.append(platforma10)
         drzwi = DuszekDrzwi(g, PhotoImage(file="drzwi1.gif"), 45, 1060-108, 73, 108)
         g.duszki.append(drzwi)
-        sf = DuszekPatyczak(g)
+        sf = DuszekAppel(g)
         g.duszki.append(sf)
         g.pętla_główna()
     def puścić_średnią_grę(self):
@@ -379,7 +387,7 @@ class menu_gry:
         g.duszki.append(platforma10)
         drzwi = DuszekDrzwi(g, PhotoImage(file="drzwi1.gif"), 45, 30, 40, 35)
         g.duszki.append(drzwi)
-        sf = DuszekPatyczak(g)
+        sf = DuszekAppel(g)
         g.duszki.append(sf)
         g.pętla_główna()
     def puścić_trudną_grę(self):
@@ -410,7 +418,7 @@ class menu_gry:
         g.duszki.append(platforma10)
         drzwi = DuszekDrzwi(g, PhotoImage(file="drzwi1.gif"), 45, 30, 40, 35)
         g.duszki.append(drzwi)
-        sf = DuszekPatyczak(g)
+        sf = DuszekAppel(g)
         g.duszki.append(sf)
         g.pętla_główna()
 
@@ -440,7 +448,7 @@ g = gra()
 # g.duszki.append(platforma10)
 # drzwi = DuszekDrzwi(g, PhotoImage(file="drzwi1.gif"), 45, 30, 40, 35)
 # g.duszki.append(drzwi)
-# sf = DuszekPatyczak(g)
+# sf = DuszekAppel(g)
 # g.duszki.append(sf)
 # g.pętla_główna()
 
