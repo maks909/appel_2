@@ -253,7 +253,7 @@ class DuszekAppel(Duszek):
                     self.gra.biegnie = False
         if spadanie and dół and self.y == 0 and wsp.y2 < self.gra.wysokość_płotna:
             self.y = 4
-        if self.x != 0:      
+        if self.x != 0 and self.y >0:      
             licznik_poruszania_się = 0
             print(self.poszybszanie)
             if self.poszybszanie > 0:
