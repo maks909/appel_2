@@ -158,10 +158,10 @@ class DuszekAppel(Duszek):
         gra.płotno.bind_all('<KeyPress-Up>', self.skok)
 
     def obrót_w_lewo(self, zdarzenie):
-        self.poszybszanie = -1
+        self.poszybszanie = -100
     
     def obrót_w_prawo(self, zdarzenie):
-        self.poszybszanie = 1
+        self.poszybszanie = 100
     
     def skok(self, zdarzenie):
         if self.y == 0:
@@ -255,14 +255,15 @@ class DuszekAppel(Duszek):
             self.y = 4
         if self.x != 0:      
             licznik_poruszania_się = 0
+            print(self.poszybszanie)
             if self.poszybszanie > 0:
-                self.poszybszanie -= 0.02
+                self.poszybszanie -= 2
             elif self.poszybszanie < 0:
-                self.poszybszanie += 0.02
+                self.poszybszanie += 2
             
 
         
-        self.gra.płotno.move(self.image, self.x*self.poszybszanie, self.y)
+        self.gra.płotno.move(self.image, self.x*self.poszybszanie/100, self.y)
         
     
     def wejść_do_drzwi(self, drzwi):
